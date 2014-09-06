@@ -1,0 +1,111 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{Computable AIXI}
+\author{\textsf{MIRIxCanberra}}
+\date{6--7 September 2014}
+
+\maketitle
+
+\begin{abstract}
+This workshop is on \emph{computable versions of AIXI}.
+In particular, we investigate a computable $\xi$,
+obtained by replacing Kolmogorov complexity with $Kt$ complexity.
+The ultimate goal is to bring self-reflection to the AIXI formalism.
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+AIXI considers only computable hypotheses
+but is itself incomputable,
+so cannot consider itself part of the environment.
+We expect that AIXI can learn and reason about parts of itself,
+and in this sense that it can do some kind of self-reflection.
+However, the AIXI model is not natural for reasoning about
+the self-reflection that AIXI might do.
+Because of this, we desire a different version of AIXI that
+allows self-reflection explicitly.
+A computable version of AIXI might be progress in this direction,
+since it does not exclude itself from the hypothesis space \emph{in principle}.
+
+In this workshop,
+we want to find reasonable weights $w_\nu$
+in the universal semimeasure $\xi$ that make it computable.
+We do this by replacing Kolmogorov complexity with
+the complexity measure $Kt$:
+\[
+   Kt(x \mid y)
+:= \min \{ \ell(p) + \log t \mid p(y) = x \text{ halting in the $t$-th time step} \}.
+\]
+Choosing the weights $w_\nu = 2^{-Kt(\nu)}$,
+we get the semimeasure
+\[
+\xi^{Kt}(x \mid y) := \sum_{\nu \in \mathcal{M}} w_\nu \nu(x \mid y).
+\]
+Using $\xi^{Kt}$ instead of $\xi$ yields a model that we call \emph{AIXI-$Kt$}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dates \& Location}
+
+\begin{tabular}{ll}
+Dates: & Sat 6 Sep and Sun 7 Sep 2014, starting 10:00{\sc am}.\\
+Location: & N101 in CSIT \\
+Note: & The workshop runs all day and meals will be provided.
+\end{tabular}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Research Questions}
+
+The following is a tentative list of research questions.
+\begin{itemize}
+\item Is $\xi^{Kt}$ a universal semimeasure? % Marcus: no
+\item Does AIXI-$Kt$ satisfy some of the optimality properties of AIXI:
+	Pareto optimality, balanced Pareto optimality, self-optimizing?
+	% Marcus: yes, yes, no
+\item What environments does AIXI succeed on but AIXI-$Kt$ does not?
+	% Marcus: unclear what success means
+\item What is the time and space complexity of AIXI-$Kt$?
+\item What if we replace $\log t$ with some other function of $t$?
+\item Are other AIXI-$Kt$ agents in AIXI-$Kt$'s hypothesis space?
+	% Marcus: no
+\item Can we find other computable weights $w_\nu$
+	that satisfy more of the desirable properties
+	mentioned in the questions above?
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background Readings}
+
+In descending order of relevance:
+\begin{itemize}
+\item Introduction of $Kt$ and Universal Search~\cite[Ch.\ 7.5]{LV:2008}.
+\item Optimality of AIXI~\cite[Ch.\ 5.4]{Hutter:2005}.
+\item Resource bounded complexity in general~\cite[Ch.\ 7.1]{LV:2008}.
+\item A related approach for Solomonoff Induction is
+	the \emph{Speed Prior}~\cite{Schmidhuber:2002}.
+\item Another computable approximation to AIXI is AIXI$tl$~\cite[Ch.\ 7.2]{Hutter:2005}.
+\end{itemize}
+
+% Kt paper: http://www.mathnet.ru/php/archive.phtml?wshow=paper&jrnid=ppi&paperid=914&option_lang=eng
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{alpha}
+\bibliography{../marcus/ai}
+
+
+\end{document}
