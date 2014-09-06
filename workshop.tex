@@ -28,7 +28,6 @@ We spent a lot of time talking about $S$, the Speed prior. $S$ is a computable s
 \begin{enumerate}
 \item $S$ is not universal, because it is computable (and there is not universal computable prior)
 \item $S$ is not a measure, for exactly the same reason that the Solomonoff prior is not a measure
-\item The algorithm AS from that paper is wrong, because it's not actually $\epsilon$-optimal. Counterexample: you have a small program that outputs $x$, and then a bunch of large programs which also output $x$. The algorithm halts prematurely and has a bad estimate.
 \item However, we made up our own algorithm which does the same thing. Basically, it's clear that $S$ is lower semi-computable. So we show that $S(x)- S(x0) - S(x1)$ is also lower semi-computable, which leads to $S(x0)$ being computable.
 \item $\epsilon$-optimal AIS is computable.
 \end{enumerate}
