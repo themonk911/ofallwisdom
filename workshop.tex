@@ -49,15 +49,15 @@ and $y$ is read from the output tape according to the following cases.
 \begin{enumerate}[(i)]
 \item $x \in \X^*$ is finite and
 	$y \in \X^*$ is to the left of the output tape's head when
-	the head of the input tape reads the next character left of $x$.
+	the head of the input tape reads the next character right of $x$.
 \item The head of the output tape writes $y \in \X^*$ but no more
 	as the machine runs forever where
 	$x$ is infinite or
-	the head on the read-only input tape never reads any characters left of $x$.
+	the head on the read-only input tape never reads any characters right of $x$.
 \item The machine writes $y \in \X^\omega$ to the output tape
 	as it runs forever where
 	$x$ is infinite or
-	the head on the read-only input tape never reads any characters left of $x$.
+	the head on the read-only input tape never reads any characters right of $x$.
 \end{enumerate}
 \end{definition}
 
