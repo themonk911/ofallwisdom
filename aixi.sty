@@ -1,0 +1,60 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AIXI-related formatting rules
+%
+% written by Jan Leike 2014
+%
+
+%---------------------------%
+% Argmax and Argmin
+\DeclareMathOperator*{\argmax}{arg\,max} % argmax operator
+\DeclareMathOperator*{\argmin}{arg\,min} % argmin operator
+
+%---------------------------%
+% Actions, percepts, observations, and histories
+\def\A{\mathcal{A}} % set of actions
+\def\E{\mathcal{E}} % set of percepts
+\def\H{(\A \times \E)^*} % history
+\let\aechar\ae % change the name of \ae so we can redefine it
+\renewcommand{\ae}{
+\ifmmode\mathchoice{
+	\mbox{\textsl{\aechar}}
+}{
+	\mbox{\textsl{\aechar}}
+}{
+	\mbox{\scriptsize\textsl{\aechar}}
+}{
+	\mbox{\scriptsize\textsl{\aechar}}
+}\else\aechar\fi%
+} % action-percept tuple
+
+%---------------------------%
+% Measures
+\def\dmid{\parallel} % double mid
+\def\leadsto{\rightarrow} % conditional probability
+\newcommand{\interleaved}[2]{%
+{\mathchoice{
+	{\scriptscriptstyle\overleftrightarrow{\mbox{\vphantom{\footnotesize I}\normalsize${#1}\hspace{-1pt}{#2}$}}}%
+}{
+	{\scriptscriptstyle\overleftrightarrow{\mbox{\vphantom{\footnotesize I}\normalsize${#1}\hspace{-1pt}{#2}$}}}%
+}{
+	{\scriptscriptstyle\overleftrightarrow{\mbox{\vphantom{\tiny I}$\scriptstyle {#1}\hspace{-1pt}{#2}$}}}%
+}{
+	{\scriptscriptstyle\overleftrightarrow{\mbox{$\scriptscriptstyle {#1}\hspace{-1pt}{#2}$}}}%
+}}} % agent and environment interleaved
+
+%---------------------------%
+% Expectimax operator
+\usepackage{relsize}
+\newcommand{\expectimax}[1]{%
+\mathchoice{
+	\ooalign{\hss$\max$\hss\cr$\mathlarger{\sum}\limits_{#1}$}
+}{
+	\ooalign{\hss$\sum$\hss\cr$\max$}_{#1}
+}{}{}
+}
+
+%---------------------------%
+% Deprecated macros (used in old formalism)
+\def\O{\mathcal{O}} % set of observations
+\def\ao{{a\hspace{-1.4pt}o}} % action-observation tuple
+\def\interleave{\rightleftarrows}

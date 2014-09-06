@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorem styles
+%
+% Defines theorem environments with a continuous counter
+%
+% written by Jan Leike 2014
+%
+
+
+\usepackage{amsthm}
+
+% From https://wiki.bath.ac.uk/display/latextricks/One-counter+theorems+with+autoref
+\usepackage{aliascnt}
+\newtheorem{dummy}{***}
+\newcommand{\mynewtheorem}[2]{
+	\newaliascnt{#1}{dummy}
+	\newtheorem{#1}[#1]{#2}
+	\aliascntresetthe{#1}
+	\expandafter\def\csname #1autorefname\endcsname{#2}
+}
+
+% For explicit theorem numbering
+\newcounter{dummyBackup}
+\newcommand{\thmcountershouldbe}[1]{
+	\setcounter{dummyBackup}{\thedummy}
+	\setcounter{dummy}{#1}
+}
+\newcommand{\thmcounterbacktonormal}{
+	\setcounter{dummy}{\thedummyBackup}
+}
+
+% Theorem styles
+\theoremstyle{plain}
+\mynewtheorem{theorem}{Theorem}
+\mynewtheorem{lemma}{Lemma}
+\mynewtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\mynewtheorem{definition}{Definition}
+\mynewtheorem{remark}{Remark}
+\mynewtheorem{example}{Example}
+
+% Add boxes to examples and remarks
+%\usepackage{etoolbox}
+%\AtEndEnvironment{remark}{%
+%	\renewcommand{\qedsymbol}{$\Diamond$}%
+%	\qed
+%}
+%\AtEndEnvironment{example}{
+%	\renewcommand{\qedsymbol}{$\Diamond$}%
+%	\qedhere
+%}
