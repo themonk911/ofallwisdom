@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}                
+\geometry{a4paper}                   
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{pdfpages}
+\usepackage{braket}
+\usepackage{mathrsfs}\newcommand{\ketbra}[2]{\ensuremath{\left| #1 \right\rangle \left\langle #2 \right|}}
+\renewcommand\vec[1]{\ensuremath{\mathbf{#1}}}
+\newcommand\D[3]{\displaystyle\frac{d^{#1}#2}{d#3^{#1}}} %{d no.}{top}{bottom}
+\renewcommand\P[3]{\frac{\partial^{#1}#2}{\partial#3^{#1}}} %as above, partial
+\newcommand\E[1]{\ensuremath{\times 10^{#1}}}
+\newcommand\R{\mathbb{R}} 
+\newcommand\C{\mathbb{C}} 
+\newcommand\Z{\mathbb{Z}}
+\newcommand\N{\mathbb{N}}
+\newcommand\Q{\mathbb{Q}}
+\newcommand{\ts}{\textsuperscript}
+\newcommand\clos{\text{closure}}
+\newcommand\range{\text{range}}
+\newcommand\supp{\text{supp}}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing}
+\usepackage{tikz-cd}
+
+\usepackage{hyperref}
+
+\title{Computability of $S$}
+\author{Daniel Filan, \texttt{daniel.filan@anu.edu.au}}
+\date{}
+
+\begin{document}
+\maketitle
+
+We define $S$ the same way as in Schmidhuber's paper, except having the definition on monotone Turing machines. It is clear that $S$ is lower semicomputable, using the FAST algorithm. We show that $S(x)$ is computable for all $x$ by induction.
+
+The base case is the string $x = \epsilon$. Since $S(\epsilon) = 1$ by definition, it is computable.
+
+Now, suppose all strings of length $n$ are computable. Then, let $x$ be a string of length $n$ and $y = x0$. We will show that $S(x) - S(x0) - S(x1)$ is lower semicomputable. Then, since $S(x1)$ is lower semicomputable and $S(x)$ is computable,
+\begin{align*}
+  S(x0) = -(S(x)-S(x0)-S(x1)) + S(x)- S(x1)
+\end{align*}
+is upper semicomputable, meaning that it is computable. Therefore, all strings of length $n+1$ are computable.
+
+To show that $S(x) - S(x0) - S(x1)$ is lower semicomputable, we note that
+\begin{align*}
+  S(x)- S(x0) - S(x1) = \sum_{i = 1}^\infty 2^{-i} \left( \sum_{p \rightarrow_i x} 2^{-|p|} - \sum_{\substack{
+        p \rightarrow_i x0 \\
+        p \rightarrow_i x1
+      }} 2^{-|p|} \right)
+\end{align*}
+To lower semicompute this quantity, we can just run the FAST algorithm for $k$ steps, which will give us the first $k$ terms in this sum. Eventually this will converge to the required quantity, and each term in brackets is positive (since $p \rightarrow_i x0$ or $p \rightarrow_i x1$ implies $p \rightarrow_i x$), meaning that this is a lower semicomputation.
+
+\end{document}

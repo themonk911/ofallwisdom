@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}                
+\geometry{a4paper}                   
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{pdfpages}
+\usepackage{braket}
+\usepackage{mathrsfs}\newcommand{\ketbra}[2]{\ensuremath{\left| #1 \right\rangle \left\langle #2 \right|}}
+\renewcommand\vec[1]{\ensuremath{\mathbf{#1}}}
+\newcommand\D[3]{\displaystyle\frac{d^{#1}#2}{d#3^{#1}}} %{d no.}{top}{bottom}
+\renewcommand\P[3]{\frac{\partial^{#1}#2}{\partial#3^{#1}}} %as above, partial
+\newcommand\E[1]{\ensuremath{\times 10^{#1}}}
+\newcommand\R{\mathbb{R}} 
+\newcommand\C{\mathbb{C}} 
+\newcommand\Z{\mathbb{Z}}
+\newcommand\N{\mathbb{N}}
+\newcommand\Q{\mathbb{Q}}
+\newcommand{\ts}{\textsuperscript}
+\newcommand\clos{\text{closure}}
+\newcommand\range{\text{range}}
+\newcommand\supp{\text{supp}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing}
+\usepackage{tikz-cd}
+
+\usepackage{hyperref}
+
+\title{$\epsilon$-optimal AIS is computable}
+\author{Daniel Filan, \texttt{daniel.filan@anu.edu.au}}
+\date{}
+
+\begin{document} 
+\maketitle
+
+First, we define the AIS model by putting the speed prior into the AIXI model:
+\begin{align*}
+  \dot{a}_k = \argmax_{a_k} \lim_{m \rightarrow \infty} \max_a \sum_e (\gamma_k r_k + \dotsb + \gamma_m r_m) S(ae_{k:m} | ae_{<k})
+\end{align*}
+where the $\gamma_t$ are discount factors such that
+\begin{align*}
+  \sum_{t=1}^\infty \gamma_t < \infty
+\end{align*}
+
+Here, we show that AIS is computable to within $\epsilon$ accuracy: that is, that the value gained by this approximation may be up to $\epsilon$ less than the value that AIS expects to get.
+
+To do this, note that since $S$ and rewards are bounded, there exists some $n > k$ such that
+\begin{align*}
+  \lim_{m \rightarrow \infty} \max_a \sum_e (\gamma_n r_n + \dotsb + \gamma_m r_m) S(ae_{k:m} | ae_{<k}) &\leq C \sum_{t = n}^\infty \gamma_t \\
+  &\leq \epsilon
+\end{align*}
+Therefore, we can simply compute
+\begin{align*}
+  \dot{a_k}= \argmax_{a_k} \max_a \sum_e (\gamma_k r_k + \dotsb + \gamma_n r_n) S(ae_{kn}:ae_{<k})
+\end{align*}
+and the value gained by $\dot{a_k}$ can be no less than $\epsilon$ less than the value gained by the optimal policy. Therefore, AIS is computable to within $\epsilon$ accuracy, assuming that $\sum_{t = n}^\infty \gamma_t$ is computable.
+
+\end{document}
