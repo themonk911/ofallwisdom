@@ -7,6 +7,7 @@
 \usepackage{mythm}
 \usepackage{aixi}
 \def\X{\mathcal{X}}
+\def\C{\mathcal{C}}
 
 %opening
 \title{Workshop}
@@ -100,6 +101,26 @@ This bound is only useful if $f(t) \in o(t)$.
 %\end{definition}
 
 \include{sonmonotone}
+\section{Properties of S}
+
+We want to prove that Postulate 1 ~\cite{Schmidhuber:2002} holds for $S$ i.e.\ if $\C_t$ is the set of all strings that are computable in time $t$, 
+\begin{equation}
+\sum_{x\notin \C} S(x) \leq \frac{1}{t} \\ 
+\end{equation}
+
+This is straightforward,
+
+\begin{align*}
+ \sum_{x\notin \C} S(x) &= \sum_{x\notin \C} \sum_{i=1}^{\infty}\sum_{p\rightarrow_i x} 2^{-|p|}\\
+			&= \sum_{x\notin \C} \sum_{i=\log_{t+1}}^{\infty} 2^i \sum_{p\rightarrow_i x} 2^{-|p|}\\
+			&= 2^{-\log_t}\sum_{x\notin \C} \sum_{i=1}^{\infty} 2^i \sum_{p\rightarrow_{i+\log t} x} 2^{-|p|}\\
+			&= \frac{1}{t}\sum_{x\notin \C} \sum_{i=1}^{\infty} 2^i \sum_{p\rightarrow_{i+\log t} x} 2^{-|p|}\\
+			\leq \frac{1}{t}\sum_{x\notin \C} 1 
+\end{align*}
+
+
+
+
 
 
 \bibliographystyle{alpha}

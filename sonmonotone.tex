@@ -37,8 +37,6 @@ $$ S(x) := \sum_{i=1}^\infty 2^i S_i(x) where S_i(x) = \sum_{p_i \rightarrow x} 
 
 We note that $p\rightarrow x$ means our program prefix $p$ reads p and computes output starting with $x$, while no prefix of $p$ consisting of less than $l(p)$ bits outputs $x$.
 
-This definition means that programs whose prefixes have already computed $x$ do not contribute to $S(x)$ in later stages of FAST. This means that there are no fewer programs to sum over when we transfer to the monotone setting, since we consider a prefix-free set of programs to sum over.
+This definition means that programs whose prefixes have already computed $x$ do not contribute to $S(x)$ in later stages of FAST. This means that there are no more programs to sum over when we transfer to the monotone setting, since we consider a prefix-free set of programs to sum over.
 
 Additionally, monotone Turing machines can accept strings with infinite input (see cases 2 and 3 above). However, in $S(x)$ we read in a finite prefix of the program and output a finite string as a result. We do this in stages of the algorithm FAST. This output string may be equal to $x$ at some point in which case the program prefix will contribute to the sum, but otherwise the infinite program will never contribute to the sum.
-
-On a monotone Turing machine we replace $p \rightarrow x$ with $M(p'x) = y$
