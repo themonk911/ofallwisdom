@@ -1,0 +1,79 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}                
+\geometry{a4paper}                   
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{pdfpages}
+\usepackage{braket}
+\usepackage{mathrsfs}\newcommand{\ketbra}[2]{\ensuremath{\left| #1 \right\rangle \left\langle #2 \right|}}
+\renewcommand\vec[1]{\ensuremath{\mathbf{#1}}}
+\newcommand\D[3]{\displaystyle\frac{d^{#1}#2}{d#3^{#1}}} %{d no.}{top}{bottom}
+\renewcommand\P[3]{\frac{\partial^{#1}#2}{\partial#3^{#1}}} %as above, partial
+\newcommand\E[1]{\ensuremath{\times 10^{#1}}}
+\newcommand\R{\mathbb{R}} 
+\newcommand\C{\mathbb{C}} 
+\newcommand\Z{\mathbb{Z}}
+\newcommand\N{\mathbb{N}}
+\newcommand\Q{\mathbb{Q}}
+\newcommand{\ts}{\textsuperscript}
+\newcommand\clos{\text{closure}}
+\newcommand\range{\text{range}}
+\newcommand\supp{\text{supp}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing}
+\usepackage{tikz-cd}
+
+\usepackage{hyperref}
+
+\title{Effective Domination}
+\author{Daniel Filan, \texttt{daniel.filan@anu.edu.au}}
+\date{}
+
+\begin{document} 
+\maketitle
+
+Here, we define effective domination, uniform effective domination, motivate these definitions, and show that $S$, the speed prior, effectively dominates the class of lower semicomputable semimeasures.
+
+First, assume $\mu$ and $\nu$ are semimeasures on $\{0,1\}^\omega$. Then, we say that $\mu$ \textit{effectively dominates} $\nu$ if there exists some $f_{\nu} : \N \rightarrow \R_{>0}$ and some $c \in \R$ such that for all $x \in \{0,1\}^*$,
+\begin{align}
+  \mu(x) \geq c f_\nu(|x|) \nu(x)\label{eq:1}
+\end{align}
+Thus, $\mu$ dominates $\nu$ except for some function of the length of the string. Similarly, we say that $\mu$ effectively dominates a class of semimeasures if it dominates each one of them.
+
+Next, we say that $\mu$ \textit{uniformly effectively dominates} a class $\mathcal{M}$ of semimeasures if there exists some $f: \N \rightarrow \R_{>0}$ such that for all $\nu \in \mathcal{M}$, there exists some $c \in \R_{>0}$ such that for all $x \in \{0,1\}^*$,
+\begin{align}
+  \mu(x) \geq c f(|x|) \nu(x) \label{eq:2}
+\end{align}
+Note the difference between (\ref{eq:1}) and (\ref{eq:2}): in (\ref{eq:1}), $f_\nu$ depends on the semimeasure $\nu$, while in (\ref{eq:2}), it does not.
+
+Uniform effective dominance might seem to be useful: if we are in a sequence prediction setting, then the $\Lambda_\mu$ predictor acts just like the $\Lambda_{\mu/f}$ predictor, and $\mu/f$ dominates the class $\mathcal{M}$, meaning that good bounds could apply.
+
+However, we show that any non-vanishing semimeasure $\mu$ effectively dominates any semimeasure class of semimeasures $\mathcal{M}$: let $f(n) = \min_{|x| = n}\mu(x)$. Then, letting $\nu \in \mathcal{M}$,
+\begin{align}
+  \mu(x) &\geq f(|x|) \nonumber \\
+  &\geq f(|x|) \nu(x) \label{eq:3}
+\end{align}
+
+As (\ref{eq:3}) shows, uniform effective dominance is in itself nothing special, making it therefore somewhat unwisely named. Despite this, we will show that $S$ effectively dominates the class of lower semicomputable semimeasures, and hope that this is worth something.
+
+We use the fact that for all lower semicomputable semi-measures $\mu$, there is some Turing machine $T$ such that $\mu(x) = \sum_{p:\; T(p) = x}2^{-|p|}$. Now, if $\mu(x) < 2^{-|x|}$, then $\mu$ is clearly dominated by the Lebesgue measure, which in turn is clearly effectively dominated by $S$. On the other hand, suppose that $\mu(x) \geq 2^{-|x|}$. Then, let $f_\nu(n)$ be the maximum time it takes for $T$ to output a string of length $n$ PROBLEM - THIS MIGHT NOT EXIST!!! There must be some program of length $\leq |x|$ that outputs $x$: call the shortest such program $p^x$. Then,
+\begin{align*}
+  S(x) &= \sum_{i = 1}^\infty 2^{-i} \sum_{p \rightarrow_i x} 2^{-|p|} \\
+  &\geq \sum_{i = |p^x| + c + \log t(p^x,x)} 2^{-i - |p^x| - c} \\
+  &\geq 2^{-c}\sum_{i = |p^x| + c + \log f_\nu(|x|)} 2^{-i-|x|} \\
+  &\geq 2^{-c} 2^{-|x|} 2^{-|p^x|-\log f_\nu(|x|) - c + 1} \\
+  &\geq c' \frac{2^{-2|x|}}{f_\nu(|x|)} \nu(x)
+\end{align*}
+meaning that $S$ effectively dominates $\nu$.
+
+If this result is to be useful, it will be due to the form of $f$. Alternatively, if it turns out that $S$ uniformly effectively dominates the class of lower semi-computable semimeasures with the function $f(|x|)$, and that $S/f$ is still a semimeasure, that would mean that $S$ would perform well in a sequence prediction setting.
+
+\end{document}
