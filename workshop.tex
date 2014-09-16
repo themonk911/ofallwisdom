@@ -1,5 +1,7 @@
 \documentclass[a4paper]{article}
 
+\usepackage[utf8]{inputenc}
+
 \usepackage{amssymb}
 \usepackage{enumerate}
 \usepackage{hyperref}
@@ -33,7 +35,7 @@ AI$S$ is like AI$\xi$ but with $S$ instead of $\xi$.\\
 \item $S$ is not a measure, for exactly the same reason that the Solomonoff prior is not a measure
 	(some programs just print a finite string and stop).
 \item However, we made up our own algorithm which does the same thing. Basically, it's clear that $S$ is lower semi-computable. So we show that $S(x)- S(x0) - S(x1)$ is also lower semi-computable, which leads to $S(x0)$ being computable.
-\item $\epsilon$-optimal AIS is computable.
+\item $\varepsilon$-optimal AIS is computable.
 \item $S$ effectively dominates (see \autoref{def:effective-domination}) all lower semicomputable semimeasures.
 \item $S(x) \leq 1 / |x|$
 \item $S(x) \leq c_{S'} S'(x)$~\cite[Eq.\ 7]{Schmidhuber:2002}.
